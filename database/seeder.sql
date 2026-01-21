@@ -1,37 +1,37 @@
 -- Seeder Data for Aplikasi Gudang (Native PHP)
--- UPDATED to match strict schema of 'gudang.sql'
+-- UPDATED: Explicit Master IDs to ensure INNER JOINs work correctly.
 
 -- 1. Seeder table "tbl_jenis"
-INSERT INTO tbl_jenis (nama_jenis) VALUES
-('Elektronik'),
-('Alat Tulis Kantor'),
-('Perabotan'),
-('Peralatan Kebersihan'),
-('Komputer & Aksesoris');
+-- Explicitly inserting IDs 1-5
+INSERT INTO tbl_jenis (id_jenis, nama_jenis) VALUES
+(1, 'Elektronik'),
+(2, 'Alat Tulis Kantor'),
+(3, 'Perabotan'),
+(4, 'Peralatan Kebersihan'),
+(5, 'Komputer & Aksesoris');
 
 -- 2. Seeder table "tbl_satuan"
-INSERT INTO tbl_satuan (nama_satuan) VALUES
-('Pcs'),
-('Unit'),
-('Box'),
-('Paket'),
-('Rim'),
-('Set');
+-- Explicitly inserting IDs 1-6
+INSERT INTO tbl_satuan (id_satuan, nama_satuan) VALUES
+(1, 'Pcs'),
+(2, 'Unit'),
+(3, 'Box'),
+(4, 'Paket'),
+(5, 'Rim'),
+(6, 'Set');
 
 -- 3. Seeder table "tbl_lokasi_rak"
-INSERT INTO tbl_lokasi_rak (lokasi_rak) VALUES
-('Rak A-1'),
-('Rak A-2'),
-('Rak B-1'),
-('Rak B-2'),
-('Lemari Besi 1'),
-('Gudang Belakang');
+-- Explicitly inserting IDs 1-6
+INSERT INTO tbl_lokasi_rak (id_lokasi_rak, lokasi_rak) VALUES
+(1, 'Rak A-1'),
+(2, 'Rak A-2'),
+(3, 'Rak B-1'),
+(4, 'Rak B-2'),
+(5, 'Lemari Besi 1'),
+(6, 'Gudang Belakang');
 
 -- 4. Seeder table "tbl_barang"
--- Schema: id_barang, nama_barang, jenis, stok_minimum, stok, satuan, lokasi_rak, barang_pending, foto
--- Note: 'jenis', 'satuan', 'lokasi_rak' are assumed to hold FK IDs based on usage.
--- 'barang_pending' is NOT NULL, setting to 0.
--- 'foto' is DEFAULT NULL.
+-- Now confident that jenis 1-5, satuan 1-6, lokasi_rak 1-6 EXIST.
 
 INSERT INTO tbl_barang (id_barang, nama_barang, jenis, stok_minimum, stok, satuan, lokasi_rak, barang_pending, foto) VALUES
 ('B001', 'Laptop ASUS Rog', 1, 5, 0, 2, '1', 0, NULL),
@@ -46,9 +46,7 @@ INSERT INTO tbl_barang (id_barang, nama_barang, jenis, stok_minimum, stok, satua
 ('B010', 'Cairan Pembersih Lantai', 4, 10, 0, 1, '6', 0, NULL);
 
 -- 5. Seeder table "tbl_barang_masuk"
--- Schema: id_transaksi, tanggal, barang, jumlah, keterangan, inputby
--- 'barang' references id_barang
--- 'inputby' assumed to be 'Administrator' or similar string/ID.
+-- 'inputby' matched to 'Administrator' from existing users.
 
 INSERT INTO tbl_barang_masuk (id_transaksi, tanggal, barang, jumlah, keterangan, inputby) VALUES
 ('TM-20240101-001', '2024-01-01', 'B001', 10, 'Pengadaan Awal Tahun', 'Administrator'),
@@ -63,8 +61,7 @@ INSERT INTO tbl_barang_masuk (id_transaksi, tanggal, barang, jumlah, keterangan,
 ('TM-20240110-010', '2024-01-10', 'B010', 25, 'Stok Kebersihan', 'Administrator');
 
 -- 6. Seeder table "tbl_barang_keluar"
--- Schema: id_transaksi, tanggal, barang, jumlah, keterangan, inputby, pic
--- 'pic' string NOT NULL
+-- 'pic' included.
 
 INSERT INTO tbl_barang_keluar (id_transaksi, tanggal, barang, jumlah, keterangan, inputby, pic) VALUES
 ('TK-20240201-001', '2024-02-01', 'B001', 2, 'Dipakai Tim IT', 'Administrator', 'Rudi IT'),
@@ -74,8 +71,7 @@ INSERT INTO tbl_barang_keluar (id_transaksi, tanggal, barang, jumlah, keterangan
 ('TK-20240205-005', '2024-02-05', 'B010', 5, 'Pembersihan Gudang', 'Administrator', 'Joko OB');
 
 -- 7. Seeder table "tbl_peminjaman_barang"
--- Schema: nama_barang, jumlah_peminjaman, pic, tanggal_pinjam, tanggal_kembali, keterangan, gambar, status
--- 'gambar' NOT NULL
+-- 'gambar' included.
 
 INSERT INTO tbl_peminjaman_barang (nama_barang, jumlah_peminjaman, pic, tanggal_pinjam, tanggal_kembali, keterangan, gambar, status) VALUES
 ('Laptop ASUS Rog', 1, 'Budi Santoso', '2024-03-01 09:00:00', '2024-03-03 17:00:00', 'Presentasi Marketing', 'no_image.png', 'Barang Telah Dikembalikan'),
