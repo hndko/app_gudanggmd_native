@@ -1,7 +1,7 @@
 <?php
 session_start();      // mengaktifkan session
 
-// pengecekan session login user 
+// pengecekan session login user
 // jika user belum login
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
   // alihkan ke halaman login dan tampilkan pesan peringatan login
@@ -19,7 +19,7 @@ else {
     $tanggal       = mysqli_real_escape_string($mysqli, trim($_POST['tanggal']));
     $barang        = mysqli_real_escape_string($mysqli, $_POST['barang']);
     $jumlah        = mysqli_real_escape_string($mysqli, $_POST['jumlah']);
-    $pic 	   = mysqli_real_escape_string($mysqli, $_POST['pic']);
+    $pic      = mysqli_real_escape_string($mysqli, $_POST['pic']);
     $keterangan    = mysqli_real_escape_string($mysqli, $_POST['keterangan']);
     $inputby       = mysqli_real_escape_string($mysqli, $_POST['inputby']);
     $status        = 'Barang Keluar';
@@ -27,12 +27,30 @@ else {
     // ubah format tanggal menjadi Tahun-Bulan-Hari (Y-m-d) sebelum disimpan ke database
     $tanggal_keluar = date('Y-m-d', strtotime($tanggal));
 
+    // Cek apakah id_transaksi sudah ada
+    $query_cek = mysqli_query($mysqli, "SELECT id_transaksi FROM tbl_barang_keluar WHERE id_transaksi='$id_transaksi'")
+      or die('Ada kesalahan pada query cek id : ' . mysqli_error($mysqli));
+    $rows_cek = mysqli_num_rows($query_cek);
+
+    // Jika id_transaksi sudah ada, generate ID baru
+    if ($rows_cek > 0) {
+      $query_id = mysqli_query($mysqli, "SELECT RIGHT(id_transaksi,5) as nomor FROM tbl_barang_keluar WHERE id_transaksi LIKE 'BK-" . date('dmY') . "%' ORDER BY id_transaksi DESC LIMIT 1")
+        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+      $data_id = mysqli_fetch_assoc($query_id);
+      if (mysqli_num_rows($query_id) <> 0) {
+        $nomor_urut = intval($data_id['nomor']) + 1;
+      } else {
+        $nomor_urut = 1;
+      }
+      $id_transaksi = "BK-" . date("dmY") . "-" . str_pad($nomor_urut, 5, "0", STR_PAD_LEFT);
+    }
+
     // sql statement untuk insert data ke tabel "tbl_barang_keluar"
-    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_keluar(id_transaksi, tanggal, barang, jumlah, pic, keterangan, inputby) 
+    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_keluar(id_transaksi, tanggal, barang, jumlah, pic, keterangan, inputby)
                                      VALUES('$id_transaksi', '$tanggal_keluar', '$barang', '$jumlah','$pic', '$keterangan', '$inputby')")
       or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
 
-    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_masuk_keluar(id_transaksi, tanggal, barang, jumlah, status, keterangan, inputby) 
+    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_masuk_keluar(id_transaksi, tanggal, barang, jumlah, status, keterangan, inputby)
                                      VALUES('$id_transaksi', '$tanggal_keluar', '$barang', '$jumlah', '$status', '$keterangan', '$inputby')")
       or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
     // cek query
@@ -41,14 +59,14 @@ else {
       // alihkan ke halaman barang keluar dan tampilkan pesan berhasil simpan data
       header('location: ../../main.php?module=barang_keluar&pesan=1');
       // kirim notifikasi wa
-        $query = mysqli_query($mysqli, "SELECT nama_barang FROM tbl_barang WHERE id_barang='$barang' LIMIT 1")
+      $query = mysqli_query($mysqli, "SELECT nama_barang FROM tbl_barang WHERE id_barang='$barang' LIMIT 1")
         or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-        // ambil data hasil query
-        $data_barang  = mysqli_fetch_assoc($query);
+      // ambil data hasil query
+      $data_barang  = mysqli_fetch_assoc($query);
 
       $data_notif = [
         "number" => "6282285329673",
-        "message" => "*".$status."*\nNo BON : ".$id_transaksi."\nNama Barang : ".$data_barang['nama_barang']."\nJumlah : ".$jumlah."\nPIC : ".$pic." \nKeterangan :".$keterangan
+        "message" => "*" . $status . "*\nNo BON : " . $id_transaksi . "\nNama Barang : " . $data_barang['nama_barang'] . "\nJumlah : " . $jumlah . "\nPIC : " . $pic . " \nKeterangan :" . $keterangan
       ];
 
       $kirim = kirimWhatsapp($data_notif);

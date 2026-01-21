@@ -1,7 +1,7 @@
 <?php
 session_start();      // mengaktifkan session
 
-// pengecekan session login user 
+// pengecekan session login user
 // jika user belum login
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
   // alihkan ke halaman login dan tampilkan pesan peringatan login
@@ -27,12 +27,30 @@ else {
     // ubah format tanggal menjadi Tahun-Bulan-Hari (Y-m-d) sebelum disimpan ke database
     $tanggal_masuk = date('Y-m-d', strtotime($tanggal));
 
+    // Cek apakah id_transaksi sudah ada
+    $query_cek = mysqli_query($mysqli, "SELECT id_transaksi FROM tbl_barang_masuk WHERE id_transaksi='$id_transaksi'")
+      or die('Ada kesalahan pada query cek id : ' . mysqli_error($mysqli));
+    $rows_cek = mysqli_num_rows($query_cek);
+
+    // Jika id_transaksi sudah ada, generate ID baru
+    if ($rows_cek > 0) {
+      $query_id = mysqli_query($mysqli, "SELECT RIGHT(id_transaksi,5) as nomor FROM tbl_barang_masuk WHERE id_transaksi LIKE 'BM-" . date('dmY') . "%' ORDER BY id_transaksi DESC LIMIT 1")
+        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+      $data_id = mysqli_fetch_assoc($query_id);
+      if (mysqli_num_rows($query_id) <> 0) {
+        $nomor_urut = intval($data_id['nomor']) + 1;
+      } else {
+        $nomor_urut = 1;
+      }
+      $id_transaksi = "BM-" . date("dmY") . "-" . str_pad($nomor_urut, 5, "0", STR_PAD_LEFT);
+    }
+
     // sql statement untuk insert data ke tabel "tbl_barang_masuk"
-    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_masuk(id_transaksi, tanggal, barang, jumlah, keterangan, inputby) 
+    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_masuk(id_transaksi, tanggal, barang, jumlah, keterangan, inputby)
                                      VALUES('$id_transaksi', '$tanggal_masuk', '$barang', '$jumlah', '$keterangan', '$inputby')")
       or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
 
-    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_masuk_keluar(id_transaksi, tanggal, barang, jumlah, status, keterangan, inputby) 
+    $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang_masuk_keluar(id_transaksi, tanggal, barang, jumlah, status, keterangan, inputby)
                                      VALUES('$id_transaksi', '$tanggal_masuk', '$barang', '$jumlah', '$status', '$keterangan', '$inputby')")
       or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
     // cek query
@@ -42,16 +60,16 @@ else {
       header('location: ../../main.php?module=barang_masuk&pesan=1');
       // kirim notifikasi wa
       $query = mysqli_query($mysqli, "SELECT nama_barang FROM tbl_barang WHERE id_barang='$barang' LIMIT 1")
-      or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
       // ambil data hasil query
       $data_barang  = mysqli_fetch_assoc($query);
 
-    $data_notif = [
-      "number" => "6282285329673",
-      "message" => "*".$status."*\nNo BON : ".$id_transaksi."\nNama Barang : ".$data_barang['nama_barang']."\nJumlah : ".$jumlah." \nKeterangan :".$keterangan
-    ];
+      $data_notif = [
+        "number" => "6282285329673",
+        "message" => "*" . $status . "*\nNo BON : " . $id_transaksi . "\nNama Barang : " . $data_barang['nama_barang'] . "\nJumlah : " . $jumlah . " \nKeterangan :" . $keterangan
+      ];
 
-    $kirim = kirimWhatsapp($data_notif);
+      $kirim = kirimWhatsapp($data_notif);
     }
   }
 }

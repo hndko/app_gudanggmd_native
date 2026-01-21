@@ -161,7 +161,7 @@ else { ?>
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-box"></i></span>
                       </div>
-                      <select class="form-control js-example-basic-single" id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
+                      <select class="form-control js-example-basic-single chosen-select" id="data_barang" name="barang" autocomplete="off" required>
                         <option selected disabled value="">-- Pilih --</option>
                         <?php
                         // sql statement untuk menampilkan data dari tabel "tbl_barang"

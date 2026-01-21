@@ -157,17 +157,17 @@ else { ?>
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-box"></i></span>
                     </div>
-                    <select class="form-control " id="data_barang" name="barang" class="form-control chosen-select" data-live-search="true" autocomplete="off" required>
+                    <select class="form-control chosen-select" id="data_barang" name="barang" data-live-search="true" autocomplete="off" required>
                       <option selected disabled value="">-- Pilih --</option>
                       <?php
                       // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                      // $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
-                      //   or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                      $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
+                        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                       // ambil data hasil query
-                      // while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                      //   // tampilkan data
-                      //   echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
-                      // }
+                      while ($data_barang = mysqli_fetch_assoc($query_barang)) {
+                        // tampilkan data
+                        echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
+                      }
                       ?>
                     </select>
                   </div>
@@ -304,6 +304,11 @@ else { ?>
                 `<option value="${item.id_barang}">${item.id_barang} - ${item.nama_barang} - ${item.lokasi_rak}</option>`
               );
             });
+
+            // Trigger update for Chosen plugin if it's being used
+            $dataBarang.trigger("chosen:updated");
+            // Trigger native change to ensure any other listeners are notified (though Select2/Chosen might handle this differently)
+            $dataBarang.trigger('change');
           }
         });
       });
