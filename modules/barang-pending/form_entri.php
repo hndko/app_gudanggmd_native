@@ -53,7 +53,7 @@ else { ?>
                   // ambil data hasil query
                   $data = mysqli_fetch_assoc($query);
                   // nomor urut "id_transaksi" yang terakhir + 1 (contoh nomor urut yang terakhir adalah 2, maka 2 + 1 = 3, dst..)
-                  $nomor_urut = $data['nomor'] + 1;
+                  $nomor_urut = intval($data['nomor']) + 1;
                 }
                 // jika "id_transaksi" belum ada
                 else {

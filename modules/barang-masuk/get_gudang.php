@@ -11,14 +11,14 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
     $lokasi_rak = $_GET['lokasi_rak'];
 
     // sql statement untuk menampilkan data dari tabel "tbl_barang" dan tabel "tbl_satuan" berdasarkan "lokasi_rak"
-    $query = mysqli_query($mysqli, "SELECT lokasi_rak FROM tbl_barang 
-                                    WHERE lokasi_rak='$lokasi_rak'")
-                                    or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+    $query = mysqli_query($mysqli, "SELECT id_barang, nama_barang, lokasi_rak FROM tbl_barang
+                                    WHERE lokasi_rak='$lokasi_rak' ORDER BY nama_barang ASC")
+      or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     $data = [];
     while ($row = mysqli_fetch_assoc($query)) {
-        $data[] = $row;
+      $data[] = $row;
     }
-    header('Content-Type: application/json'); 
+    header('Content-Type: application/json');
     echo json_encode($data);
   }
 }
