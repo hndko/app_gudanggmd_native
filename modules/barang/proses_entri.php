@@ -1,7 +1,7 @@
 <?php
 session_start();      // mengaktifkan session
 
-// pengecekan session login user 
+// pengecekan session login user
 // jika user belum login
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
   // alihkan ke halaman login dan tampilkan pesan peringatan login
@@ -25,19 +25,30 @@ else {
     // ambil data file hasil submit dari form
     $nama_file          = $_FILES['foto']['name'];
     $tmp_file           = $_FILES['foto']['tmp_name'];
-    $extension          = array_pop(explode(".", $nama_file));
+    $file_parts         = explode(".", $nama_file);
+    $extension          = array_pop($file_parts);
     // enkripsi nama file
     $nama_file_enkripsi = sha1(md5(time() . $nama_file)) . '.' . $extension;
-    // tentukan direktori penyimpanan file foto
-    $path               = "../../uploads/" . $nama_file_enkripsi;
+
+    // tentukan direktori penyimpanan file foto (dalam folder barang)
+    $upload_dir         = "../../uploads/barang/";
+    // buat folder jika belum ada
+    if (!is_dir($upload_dir)) {
+      mkdir($upload_dir, 0777, true);
+    }
+
+    $path               = $upload_dir . $nama_file_enkripsi;
+    // nama file yang akan disimpan di database (termasuk folder)
+    $db_file_name       = "barang/" . $nama_file_enkripsi;
 
     // mengecek data foto dari form entri data
     // jika data foto tidak ada
     if (empty($nama_file)) {
       // sql statement untuk insert data ke tabel "tbl_barang"
-      $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang(id_barang, nama_barang, jenis, stok_minimum, satuan, lokasi_rak) 
-                                       VALUES('$id_barang', '$nama_barang', '$jenis', '$stok_minimum', '$satuan', '$lokasi_rak')")
-                                       or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
+      // tambahkan barang_pending = 0
+      $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang(id_barang, nama_barang, jenis, stok_minimum, satuan, lokasi_rak, barang_pending)
+                                       VALUES('$id_barang', '$nama_barang', '$jenis', '$stok_minimum', '$satuan', '$lokasi_rak', 0)")
+        or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
       // cek query
       // jika proses insert berhasil
       if ($insert) {
@@ -51,9 +62,10 @@ else {
       // jika file berhasil diunggah
       if (move_uploaded_file($tmp_file, $path)) {
         // sql statement untuk insert data ke tabel "tbl_barang"
-        $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang(id_barang, nama_barang, jenis, stok_minimum, satuan, foto, lokasi_rak) 
-                                         VALUES('$id_barang', '$nama_barang', '$jenis', '$stok_minimum', '$satuan', '$nama_file_enkripsi', $lokasi_rak)")
-                                         or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
+        // tambahkan barang_pending = 0
+        $insert = mysqli_query($mysqli, "INSERT INTO tbl_barang(id_barang, nama_barang, jenis, stok_minimum, satuan, foto, lokasi_rak, barang_pending)
+                                         VALUES('$id_barang', '$nama_barang', '$jenis', '$stok_minimum', '$satuan', '$db_file_name', '$lokasi_rak', 0)")
+          or die('Ada kesalahan pada query insert : ' . mysqli_error($mysqli));
         // cek query
         // jika proses insert berhasil
         if ($insert) {

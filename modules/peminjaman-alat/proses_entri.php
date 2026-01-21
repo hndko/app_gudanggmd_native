@@ -45,11 +45,20 @@ else {
         if ($ukuran_file <= 1000000) {
           // Generate nama file baru agar unik
           $nama_file_baru = uniqid() . '.' . $file_extension;
-          $path_file      = "../../uploads/" . $nama_file_baru;
+
+          // Tentukan direktori penyimpanan
+          $upload_dir = "../../uploads/peminjaman_barang/";
+          // Buat folder jika belum ada
+          if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+          }
+
+          $path_file      = $upload_dir . $nama_file_baru;
+          $db_file_name   = "peminjaman_barang/" . $nama_file_baru;
 
           // Upload file
           if (move_uploaded_file($tmp_file, $path_file)) {
-            $gambar = $nama_file_baru;
+            $gambar = $db_file_name;
           } else {
             // Jika gagal upload
             header('location: ../../main.php?module=peminjaman-alat&pesan=2');
