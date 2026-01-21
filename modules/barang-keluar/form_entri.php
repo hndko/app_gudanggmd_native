@@ -75,14 +75,24 @@ else { ?>
                 ?>
                 <label>ID Transaksi <span class="text-danger">*</span></label>
                 <!-- tampilkan "id_transaksi" -->
-                <input type="text" name="id_transaksi" class="form-control" value="<?php echo $id_transaksi; ?>"readonly>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-receipt"></i></span>
+                  </div>
+                  <input type="text" name="id_transaksi" class="form-control" value="<?php echo $id_transaksi; ?>" readonly>
+                </div>
               </div>
             </div>
 
             <div class="col-md-5 ml-auto">
               <div class="form-group">
                 <label>Tanggal <span class="text-danger">*</span></label>
-                <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
+                </div>
                 <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
               </div>
             </div>
@@ -92,34 +102,49 @@ else { ?>
             <div class="col-md-7">
               <div class="form-group">
                 <label>Keterangan <span class="text-danger">*</span></label>
-                <input type="text" name="keterangan" class="form-control" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
+                  </div>
+                  <input type="text" name="keterangan" class="form-control" required placeholder="Keterangan Barang Keluar">
+                </div>
                 <div class="invalid-feedback">Keterangan tidak boleh kosong.</div>
               </div>
             </div>
             <div class="col-md-5">
               <div class="form-group">
                 <label>Input <span class="text-danger">*</span></label>
-                <input value="<?php echo $_SESSION['nama_user']; ?>" type="text" name="inputby" class="form-control" readonly required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <input value="<?php echo $_SESSION['nama_user']; ?>" type="text" name="inputby" class="form-control" readonly required>
+                </div>
                 <div class="invalid-feedback">Data tidak boleh kosong.</div>
               </div>
             </div>
           </div>
 
-  	<div class="row">
+          <div class="row">
             <div class="col-md-7">
               <div class="form-group">
                 PIC<span class="text-danger">*</span></label>
-                <select name="pic"  class="form-control js-example-basic-single">
-		  <option value='0'>--Pilih--</option>
-		  <option value='Fikri santoso'>Fikri Santoso</option>
-		  <option value='Surip'>Surip</option>
-		  <option value='Sri'>Sri</option>
-		  <option value='Rustambi'>Rustambi</option>
-		  <option value='H.Tambir'>H.Tambir</option>
-		  <option value='Yusuf/eman'>Yusuf/Ehen</option>
-	  	  <option value='Amir'>Amir</option>
-		  <option value='Iyus'>Iyus</option>
-		</select>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <select name="pic" class="form-control js-example-basic-single">
+                    <option value='0'>--Pilih--</option>
+                    <option value='Fikri santoso'>Fikri Santoso</option>
+                    <option value='Surip'>Surip</option>
+                    <option value='Sri'>Sri</option>
+                    <option value='Rustambi'>Rustambi</option>
+                    <option value='H.Tambir'>H.Tambir</option>
+                    <option value='Yusuf/eman'>Yusuf/Ehen</option>
+                    <option value='Amir'>Amir</option>
+                    <option value='Iyus'>Iyus</option>
+                  </select>
+                </div>
                 <div class="invalid-feedback">Keterangan tidak boleh kosong.</div>
               </div>
             </div>
@@ -132,43 +157,53 @@ else { ?>
                 <?php if ($part_number == null) { ?>
                   <div class="form-group">
                     <label>Barang <span class="text-danger">*</span></label>
-                    <select class="form-control js-example-basic-single" id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
-                      <option selected disabled value="">-- Pilih --</option>
-                      <?php
-                      // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                      $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
-                        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                      // ambil data hasil query
-                      while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                        // tampilkan data
-                        echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
-                      }
-                      ?>
-                    </select>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-box"></i></span>
+                      </div>
+                      <select class="form-control js-example-basic-single" id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
+                        <option selected disabled value="">-- Pilih --</option>
+                        <?php
+                        // sql statement untuk menampilkan data dari tabel "tbl_barang"
+                        $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
+                          or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                        // ambil data hasil query
+                        while ($data_barang = mysqli_fetch_assoc($query_barang)) {
+                          // tampilkan data
+                          echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
+                        }
+                        ?>
+                      </select>
+                    </div>
                     <div class="invalid-feedback">Barang tidak boleh kosong.</div>
                   </div>
                 <?php } else { ?>
                   <div class="form-group">
                     <label>Barang <span class="text-danger">*</span></label>
-                    <select class="js-example-basic-single form-control" id="data_barang" name="barang" autocomplete="off" required>
-                      <?php
-                      // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                      $query_barang_selected = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang WHERE id_barang = '$part_number' ")
-                        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                      // ambil data hasil query
-                      $data_barang_selected = mysqli_fetch_assoc($query_barang_selected) ?>
-                      <option selected disabled value="<?php $data_barang_selected['id_barang'] ?>"><?php echo $data_barang_selected['id_barang'] ?> - <?php echo $data_barang_selected['nama_barang'] ?></option>
-                      <?php
-                      // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                      $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang WHERE id_barang = '$part_number' ")
-                        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                      // ambil data hasil query
-                      while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                        // tampilkan data
-                        echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
-                      }
-                      ?>
-                    </select>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-box"></i></span>
+                      </div>
+                      <select class="js-example-basic-single form-control" id="data_barang" name="barang" autocomplete="off" required>
+                        <?php
+                        // sql statement untuk menampilkan data dari tabel "tbl_barang"
+                        $query_barang_selected = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang WHERE id_barang = '$part_number' ")
+                          or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                        // ambil data hasil query
+                        $data_barang_selected = mysqli_fetch_assoc($query_barang_selected) ?>
+                        <option selected disabled value="<?php $data_barang_selected['id_barang'] ?>"><?php echo $data_barang_selected['id_barang'] ?> - <?php echo $data_barang_selected['nama_barang'] ?></option>
+                        <?php
+                        // sql statement untuk menampilkan data dari tabel "tbl_barang"
+                        $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang WHERE id_barang = '$part_number' ")
+                          or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                        // ambil data hasil query
+                        while ($data_barang = mysqli_fetch_assoc($query_barang)) {
+                          // tampilkan data
+                          echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
+                        }
+                        ?>
+                      </select>
+                    </div>
                     <div class="invalid-feedback">Barang tidak boleh kosong.</div>
                   </div>
                 <?php } ?>
@@ -176,6 +211,9 @@ else { ?>
                 <div class="form-group">
                   <label>Stok <span class="text-danger">*</span></label>
                   <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-cubes"></i></span>
+                    </div>
                     <input type="text" id="data_stok" name="stok" class="form-control" readonly>
                     <div id="data_satuan" class="input-group-append"></div>
                   </div>
@@ -184,13 +222,23 @@ else { ?>
               <div class="col-md-5 ml-auto">
                 <div class="form-group">
                   <label>Jumlah Keluar <span class="text-danger">*</span></label>
-                  <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-calculator"></i></span>
+                    </div>
+                    <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required placeholder="Jumlah Keluar">
+                  </div>
                   <div class="invalid-feedback">Jumlah keluar tidak boleh kosong.</div>
                 </div>
 
                 <div class="form-group">
                   <label>Sisa Stok <span class="text-danger">*</span></label>
-                  <input type="text" id="sisa" name="sisa" class="form-control" readonly>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-archive"></i></span>
+                    </div>
+                    <input type="text" id="sisa" name="sisa" class="form-control" readonly>
+                  </div>
                 </div>
               </div>
             </div>
@@ -205,9 +253,13 @@ else { ?>
         </div>
         <div class="card-action">
           <!-- tombol simpan data -->
-          <input type="submit" name="simpan" value="Simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+          <button type="submit" name="simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+            <i class="fas fa-save"></i> Simpan
+          </button>
           <!-- tombol kembali ke halaman data barang keluar -->
-          <a href="?module=barang_keluar" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
+          <a href="?module=barang_keluar" class="btn btn-default btn-round pl-4 pr-4">
+            <i class="fas fa-undo"></i> Batal
+          </a>
         </div>
       </form>
     </div>
@@ -222,7 +274,7 @@ else { ?>
         var id_barang = $('#data_barang').val();
 
         $.ajax({
-          type: "GET", // mengirim data dengan method GET 
+          type: "GET", // mengirim data dengan method GET
           url: "modules/barang-keluar/get_barang.php", // proses get data berdasarkan "id_barang"
           data: {
             id_barang: id_barang
@@ -286,10 +338,10 @@ else { ?>
         // tampilkan sisa stok
         $('#sisa').val(sisa_stok);
       });
-     $('#sisa').keyup(function() {
-	var sisa = $('#sisa').val();
-	
-     }) 
+      $('#sisa').keyup(function() {
+        var sisa = $('#sisa').val();
+
+      })
     });
   </script>
 
@@ -303,25 +355,33 @@ else { ?>
               <div class="col-md-7">
                 <div class="form-group">
                   <label>Barang <span class="text-danger">*</span></label>
-                  <select id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
-                    <option selected disabled value="">-- Pilih --</option>
-                    <?php
-                    // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                    $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
-                      or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                    // ambil data hasil query
-                    while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                      // tampilkan data
-                      echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
-                    }
-                    ?>
-                  </select>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-box"></i></span>
+                    </div>
+                    <select id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
+                      <option selected disabled value="">-- Pilih --</option>
+                      <?php
+                      // sql statement untuk menampilkan data dari tabel "tbl_barang"
+                      $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
+                        or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                      // ambil data hasil query
+                      while ($data_barang = mysqli_fetch_assoc($query_barang)) {
+                        // tampilkan data
+                        echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
                   <div class="invalid-feedback">Barang tidak boleh kosong.</div>
                 </div>
-  
+
                 <div class="form-group">
                   <label>Stok <span class="text-danger">*</span></label>
                   <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-cubes"></i></span>
+                    </div>
                     <input type="text" id="data_stok" name="stok" class="form-control" readonly>
                     <div id="data_satuan" class="input-group-append"></div>
                   </div>
@@ -330,13 +390,23 @@ else { ?>
               <div class="col-md-5 ml-auto">
                 <div class="form-group">
                   <label>Jumlah Keluar <span class="text-danger">*</span></label>
-                  <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-calculator"></i></span>
+                    </div>
+                    <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required placeholder="Jumlah Keluar">
+                  </div>
                   <div class="invalid-feedback">Jumlah keluar tidak boleh kosong.</div>
                 </div>
-  
+
                 <div class="form-group">
                   <label>Sisa Stok <span class="text-danger">*</span></label>
-                  <input type="text" id="sisa" name="sisa" class="form-control" readonly>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-archive"></i></span>
+                    </div>
+                    <input type="text" id="sisa" name="sisa" class="form-control" readonly>
+                  </div>
                 </div>
               </div>
             </div>

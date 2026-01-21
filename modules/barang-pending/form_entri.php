@@ -43,7 +43,7 @@ else { ?>
                 // membuat "id_transaksi"
                 // sql statement untuk menampilkan 7 digit terakhir dari "id_transaksi" pada tabel "tbl_barang_pending"
                 $query = mysqli_query($mysqli, "SELECT RIGHT(id_transaksi,5) as nomor FROM tbl_barang_pending ORDER BY id_transaksi DESC LIMIT 1")
-                                                or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                  or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
                 // ambil jumlah baris data hasil query
                 $rows = mysqli_num_rows($query);
 
@@ -66,14 +66,24 @@ else { ?>
                 ?>
                 <label>ID Transaksi <span class="text-danger">*</span></label>
                 <!-- tampilkan "id_transaksi" -->
-                <input type="text" name="id_transaksi" class="form-control" value="<?php echo $id_transaksi; ?>">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-receipt"></i></span>
+                  </div>
+                  <input type="text" name="id_transaksi" class="form-control" value="<?php echo $id_transaksi; ?>" readonly>
+                </div>
               </div>
             </div>
 
             <div class="col-md-5 ml-auto">
               <div class="form-group">
                 <label>Tanggal <span class="text-danger">*</span></label>
-                <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="text" name="tanggal" class="form-control date-picker" autocomplete="off" value="<?php echo date("d-m-Y"); ?>" required>
+                </div>
                 <div class="invalid-feedback">Tanggal tidak boleh kosong.</div>
               </div>
             </div>
@@ -85,25 +95,33 @@ else { ?>
             <div class="col-md-7">
               <div class="form-group">
                 <label>Barang <span class="text-danger">*</span></label>
-                <select class="form-control js-example-basic-single" id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
-                  <option selected disabled value="">-- Pilih --</option>
-                  <?php
-                  // sql statement untuk menampilkan data dari tabel "tbl_barang"
-                  $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
-                                                         or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                  // ambil data hasil query
-                  while ($data_barang = mysqli_fetch_assoc($query_barang)) {
-                    // tampilkan data
-                    echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
-                  }
-                  ?>
-                </select>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-box"></i></span>
+                  </div>
+                  <select class="form-control js-example-basic-single" id="data_barang" name="barang" class="form-control chosen-select" autocomplete="off" required>
+                    <option selected disabled value="">-- Pilih --</option>
+                    <?php
+                    // sql statement untuk menampilkan data dari tabel "tbl_barang"
+                    $query_barang = mysqli_query($mysqli, "SELECT id_barang, nama_barang FROM tbl_barang ORDER BY id_barang ASC")
+                      or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+                    // ambil data hasil query
+                    while ($data_barang = mysqli_fetch_assoc($query_barang)) {
+                      // tampilkan data
+                      echo "<option value='$data_barang[id_barang]'>$data_barang[id_barang] - $data_barang[nama_barang]</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
                 <div class="invalid-feedback">Barang tidak boleh kosong.</div>
               </div>
 
               <div class="form-group">
                 <label>Pending <span class="text-danger">*</span></label>
                 <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-hourglass-half"></i></span>
+                  </div>
                   <input type="text" id="data_stok" name="stok" class="form-control" readonly>
                   <div id="data_satuan" class="input-group-append"></div>
                 </div>
@@ -113,20 +131,35 @@ else { ?>
             <div class="col-md-5 ml-auto">
               <div class="form-group">
                 <label>Jumlah pending <span class="text-danger">*</span></label>
-                <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calculator"></i></span>
+                  </div>
+                  <input type="text" id="jumlah" name="jumlah" class="form-control" autocomplete="off" onKeyPress="return goodchars(event,'0123456789',this)" required placeholder="Jumlah Pending">
+                </div>
                 <div class="invalid-feedback">Jumlah pending tidak boleh kosong.</div>
               </div>
 
               <div class="form-group">
                 <label>Total Pending <span class="text-danger">*</span></label>
-                <input type="text" id="total" name="total" class="form-control" readonly>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-archive"></i></span>
+                  </div>
+                  <input type="text" id="total" name="total" class="form-control" readonly>
+                </div>
               </div>
             </div>
 
             <div class="col-md-12">
               <div class="form-group">
                 <label>Keterangan <span class="text-danger">*</span></label>
-                <input type="text" name="keterangan" class="form-control" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
+                  </div>
+                  <input type="text" name="keterangan" class="form-control" required placeholder="Keterangan Pending">
+                </div>
                 <div class="invalid-feedback">Keterangan tidak boleh kosong.</div>
               </div>
             </div>
@@ -134,9 +167,13 @@ else { ?>
         </div>
         <div class="card-action">
           <!-- tombol simpan data -->
-          <input type="submit" name="simpan" value="Simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+          <button type="submit" name="simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+            <i class="fas fa-save"></i> Simpan
+          </button>
           <!-- tombol kembali ke halaman data barang pending -->
-          <a href="?module=barang_pending" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
+          <a href="?module=barang_pending" class="btn btn-default btn-round pl-4 pr-4">
+            <i class="fas fa-undo"></i> Batal
+          </a>
         </div>
       </form>
     </div>
@@ -151,11 +188,13 @@ else { ?>
         var id_barang = $('#data_barang').val();
 
         $.ajax({
-          type: "GET",                                  // mengirim data dengan method GET 
-          url: "modules/barang-pending/get_barang.php",   // proses get data berdasarkan "id_barang"
-          data: {id_barang: id_barang},                 // data yang dikirim
-          dataType: "JSON",                             // tipe data JSON
-          success: function(result) {                   // ketika proses get data selesai
+          type: "GET", // mengirim data dengan method GET
+          url: "modules/barang-pending/get_barang.php", // proses get data berdasarkan "id_barang"
+          data: {
+            id_barang: id_barang
+          }, // data yang dikirim
+          dataType: "JSON", // tipe data JSON
+          success: function(result) { // ketika proses get data selesai
             // tampilkan data
             $('#data_stok').val(result.barang_pending);
             $('#data_satuan').html('<span class="input-group-text">' + result.nama_satuan + '</span>');
@@ -205,6 +244,5 @@ else { ?>
         $('#total').val(total_stok);
       });
     });
-
   </script>
 <?php } ?>

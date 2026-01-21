@@ -14,7 +14,7 @@ else {
 
     // sql statement untuk menampilkan data dari tabel "tbl_satuan" berdasarkan "id_satuan"
     $query = mysqli_query($mysqli, "SELECT * FROM tbl_satuan WHERE id_satuan='$id_satuan'")
-                                    or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+      or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     // ambil data hasil query
     $data = mysqli_fetch_assoc($query);
   }
@@ -49,15 +49,24 @@ else {
 
           <div class="form-group">
             <label>Satuan <span class="text-danger">*</span></label>
-            <input type="text" name="nama_satuan" class="form-control col-lg-5" autocomplete="off" value="<?php echo $data['nama_satuan']; ?>" required>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-balance-scale"></i></span>
+              </div>
+              <input type="text" name="nama_satuan" class="form-control col-lg-5" autocomplete="off" value="<?php echo $data['nama_satuan']; ?>" required placeholder="Masukkan Satuan Barang">
+            </div>
             <div class="invalid-feedback">Satuan tidak boleh kosong.</div>
           </div>
         </div>
         <div class="card-action">
           <!-- tombol simpan data -->
-          <input type="submit" name="simpan" value="Simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+          <button type="submit" name="simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+            <i class="fas fa-save"></i> Simpan
+          </button>
           <!-- tombol kembali ke halaman data satuan -->
-          <a href="?module=satuan" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
+          <a href="?module=satuan" class="btn btn-default btn-round pl-4 pr-4">
+            <i class="fas fa-undo"></i> Batal
+          </a>
         </div>
       </form>
     </div>

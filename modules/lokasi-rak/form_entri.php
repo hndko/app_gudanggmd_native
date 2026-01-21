@@ -34,16 +34,25 @@ else { ?>
       <form action="modules/lokasi-rak/proses_entri.php" method="post" class="needs-validation" novalidate>
         <div class="card-body">
           <div class="form-group">
-            <label>lokasi Gudang <span class="text-danger">*</span></label>
-            <input type="text" name="lokasi_rak" class="form-control col-lg-5" autocomplete="off" required>
-            <div class="invalid-feedback">lokasi_Gudang tidak boleh kosong.</div>
+            <label>Lokasi Gudang <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+              </div>
+              <input type="text" name="lokasi_rak" class="form-control col-lg-5" autocomplete="off" required placeholder="Masukkan Lokasi Gudang">
+            </div>
+            <div class="invalid-feedback">Lokasi Gudang tidak boleh kosong.</div>
           </div>
         </div>
         <div class="card-action">
           <!-- tombol simpan data -->
-          <input type="submit" name="simpan" value="Simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+          <button type="submit" name="simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+            <i class="fas fa-save"></i> Simpan
+          </button>
           <!-- tombol kembali ke halaman data lokasi_rak -->
-          <a href="?module=lokasi_rak" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
+          <a href="?module=lokasi_rak" class="btn btn-default btn-round pl-4 pr-4">
+            <i class="fas fa-undo"></i> Batal
+          </a>
         </div>
       </form>
     </div>

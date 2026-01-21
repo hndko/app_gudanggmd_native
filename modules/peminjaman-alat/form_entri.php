@@ -41,32 +41,62 @@ else { ?>
               <div class="form-group">
                 <label>PIC <span class="text-danger">*yang bertanggung jawab dalam peminjaman alat</span></label>
                 <!-- tampilkan "pic" -->
-                <input type="text" name="pic" class="form-control">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <input type="text" name="pic" class="form-control" autocomplete="off" placeholder="Nama PIC">
+                </div>
               </div>
               <div class="form-group">
                 <label>Nama Barang/alat <span class="text-danger">*</span></label>
-                <input type="text" name="nama_barang" class="form-control" autocomplete="off" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-box"></i></span>
+                  </div>
+                  <input type="text" name="nama_barang" class="form-control" autocomplete="off" required placeholder="Nama Barang">
+                </div>
                 <div class="invalid-feedback">Nama barang tidak boleh kosong.</div>
               </div>
 
               <div class="form-group">
                 <label>Jumlah Peminjaman <span class="text-danger">*</span></label>
-                <input type="number" name="jumlah_peminjaman" class="form-control" autocomplete="off" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calculator"></i></span>
+                  </div>
+                  <input type="number" name="jumlah_peminjaman" class="form-control" autocomplete="off" required placeholder="Jumlah Peminjaman">
+                </div>
               </div>
 
               <div class="form-group">
                 <label>Tanggal Pinjam <span class="text-danger">*</span></label>
-                <input type="datetime-local" name="tanggal_pinjam" class="form-control" autocomplete="off" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                  </div>
+                  <input type="datetime-local" name="tanggal_pinjam" class="form-control" autocomplete="off" required>
+                </div>
               </div>
 
               <div class="form-group">
                 <label>Tanggal Kembali <span class="text-danger">*</span></label>
-                <input type="date" name="tanggal_kembali" class="form-control" autocomplete="off" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-calendar-check"></i></span>
+                  </div>
+                  <input type="date" name="tanggal_kembali" class="form-control" autocomplete="off" required>
+                </div>
               </div>
 
               <div class="form-group">
                 <label>Keterangan <span class="text-danger">*</span></label>
-                <input type="text" name="keterangan" class="form-control" autocomplete="off" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
+                  </div>
+                  <input type="text" name="keterangan" class="form-control" autocomplete="off" required placeholder="Keterangan Peminjaman">
+                </div>
               </div>
             </div>
 
@@ -91,9 +121,13 @@ else { ?>
         </div>
         <div class="card-action">
           <!-- tombol simpan data -->
-          <input type="submit" name="simpan_peminjaman" value="Simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+          <button type="submit" name="simpan_peminjaman" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+            <i class="fas fa-save"></i> Simpan
+          </button>
           <!-- tombol kembali ke halaman data barang -->
-          <a href="?module=peminjaman_alat" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
+          <a href="?module=peminjaman_alat" class="btn btn-default btn-round pl-4 pr-4">
+            <i class="fas fa-undo"></i> Batal
+          </a>
         </div>
       </form>
     </div>

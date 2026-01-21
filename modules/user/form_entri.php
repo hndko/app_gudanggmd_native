@@ -35,39 +35,63 @@ else { ?>
         <div class="card-body">
           <div class="form-group col-lg-5">
             <label>Nama User <span class="text-danger">*</span></label>
-            <input type="text" name="nama_user" class="form-control" autocomplete="off" required>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+              </div>
+              <input type="text" name="nama_user" class="form-control" autocomplete="off" required placeholder="Masukkan Nama User">
+            </div>
             <div class="invalid-feedback">Nama user tidak boleh kosong.</div>
           </div>
 
           <div class="form-group col-lg-5">
             <label>Username <span class="text-danger">*</span></label>
-            <input type="text" name="username" class="form-control" autocomplete="off" required>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-id-badge"></i></span>
+              </div>
+              <input type="text" name="username" class="form-control" autocomplete="off" required placeholder="Masukkan Username">
+            </div>
             <div class="invalid-feedback">Username tidak boleh kosong.</div>
           </div>
 
           <div class="form-group col-lg-5">
             <label>Password <span class="text-danger">*</span></label>
-            <input type="password" name="password" class="form-control" autocomplete="off" required>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+              </div>
+              <input type="password" name="password" class="form-control" autocomplete="off" required placeholder="Masukkan Password">
+            </div>
             <div class="invalid-feedback">Password tidak boleh kosong.</div>
           </div>
 
           <div class="form-group col-lg-5">
             <label>Hak Akses <span class="text-danger">*</span></label>
-            <select name="hak_akses" class="form-control chosen-select" autocomplete="off" required>
-              <option selected disabled value="">-- Pilih --</option>
-              <option value="Administrator">Administrator</option>
-              <option value="Admin Gudang">Admin Gudang</option>
-              <option value="Kepala Gudang">Kepala Gudang</option>
-              <option value="Marketing">Marketing</option>
-            </select>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-user-cog"></i></span>
+              </div>
+              <select name="hak_akses" class="form-control chosen-select" autocomplete="off" required>
+                <option selected disabled value="">-- Pilih Hak Akses --</option>
+                <option value="Administrator">Administrator</option>
+                <option value="Admin Gudang">Admin Gudang</option>
+                <option value="Kepala Gudang">Kepala Gudang</option>
+                <option value="Marketing">Marketing</option>
+              </select>
+            </div>
             <div class="invalid-feedback">Hak akses tidak boleh kosong.</div>
           </div>
         </div>
         <div class="card-action">
           <!-- tombol simpan data -->
-          <input type="submit" name="simpan" value="Simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+          <button type="submit" name="simpan" class="btn btn-primary btn-round pl-4 pr-4 mr-2">
+            <i class="fas fa-save"></i> Simpan
+          </button>
           <!-- tombol kembali ke halaman data user -->
-          <a href="?module=user" class="btn btn-default btn-round pl-4 pr-4">Batal</a>
+          <a href="?module=user" class="btn btn-default btn-round pl-4 pr-4">
+            <i class="fas fa-undo"></i> Batal
+          </a>
         </div>
       </form>
     </div>
