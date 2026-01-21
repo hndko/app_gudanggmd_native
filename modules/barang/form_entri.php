@@ -40,33 +40,34 @@ else { ?>
             <div class="col-md-7">
               <div class="form-group">
                 <?php
-                // membuat "id_barang"
-                // sql statement untuk menampilkan 4 digit terakhir dari "id_barang" pada tabel "tbl_barang"
-                $query = mysqli_query($mysqli, "SELECT RIGHT(id_barang,4) as nomor FROM tbl_barang ORDER BY id_barang DESC LIMIT 1")
+                // membuat "id_barang" otomatis
+                // cari id_barang terakhir
+                $query = mysqli_query($mysqli, "SELECT id_barang FROM tbl_barang ORDER BY id_barang DESC LIMIT 1")
                   or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
-                // ambil jumlah baris data hasil query
-                $rows = mysqli_num_rows($query);
 
-                // cek hasil query
-                // jika "id_barang" sudah ada
-                // if ($rows <> 0) {
-                  // ambil data hasil query
-                  // $data = mysqli_fetch_assoc($query);
-                  // nomor urut "id_barang" yang terakhir + 1 (contoh nomor urut yang terakhir adalah 2, maka 2 + 1 = 3, dst..)
-                  // $nomor_urut = $data['nomor'] + 1;
-                // }
-                // jika "id_barang" belum ada
-                // else {
-                  // nomor urut "id_barang" = 1
-                  // $nomor_urut = 1;
-                // }
+                $count = mysqli_num_rows($query);
+                $new_id = "B001"; // Default jika tabel kosong
 
-                // menambahkan karakter "B" diawal dan karakter "0" disebelah kiri nomor urut
-                // $id_barang = "B" . str_pad($nomor_urut, 4, "0", STR_PAD_LEFT);
+                if ($count > 0) {
+                  $data = mysqli_fetch_assoc($query);
+                  $last_id = $data['id_barang'];
+
+                  // Regex untuk memisahkan Huruf (Prefix) dan Angka (Suffix)
+                  // Contoh: B001 -> Prefix: B, Suffix: 001
+                  if (preg_match('/^([a-zA-Z]+)(\d+)$/', $last_id, $matches)) {
+                    $prefix = $matches[1];
+                    $number_part = $matches[2];
+                    $number = intval($number_part);
+                    $number++; // Increment angka
+
+                    // Gabungkan kembali dengan padding nol di depan angka
+                    $new_id = $prefix . str_pad($number, strlen($number_part), "0", STR_PAD_LEFT);
+                  }
+                }
                 ?>
                 <label>ID Barang <span class="text-danger">*</span></label>
-                <!-- tampilkan "id_barang" -->
-                <input type="text" name="id_barang" class="form-control">
+                <!-- tampilkan "id_barang" dengan value default -->
+                <input type="text" name="id_barang" class="form-control" value="<?php echo $new_id; ?>" required>
               </div>
 
               <div class="form-group">
