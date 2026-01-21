@@ -19,8 +19,8 @@ else {
     if ($_GET['pesan'] == 1) {
       // tampilkan pesan sukses simpan data
       echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
-              <span data-notify="icon" class="fas fa-check"></span> 
-              <span data-notify="title" class="text-success">Sukses!</span> 
+              <span data-notify="icon" class="fas fa-check"></span>
+              <span data-notify="title" class="text-success">Sukses!</span>
               <span data-notify="message">Data barang berhasil disimpan.</span>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -31,8 +31,8 @@ else {
     elseif ($_GET['pesan'] == 2) {
       // tampilkan pesan sukses ubah data
       echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
-              <span data-notify="icon" class="fas fa-check"></span> 
-              <span data-notify="title" class="text-success">Sukses!</span> 
+              <span data-notify="icon" class="fas fa-check"></span>
+              <span data-notify="title" class="text-success">Sukses!</span>
               <span data-notify="message">Data barang berhasil diubah.</span>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -43,8 +43,8 @@ else {
     elseif ($_GET['pesan'] == 3) {
       // tampilkan pesan sukses hapus data
       echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
-              <span data-notify="icon" class="fas fa-check"></span> 
-              <span data-notify="title" class="text-success">Sukses!</span> 
+              <span data-notify="icon" class="fas fa-check"></span>
+              <span data-notify="title" class="text-success">Sukses!</span>
               <span data-notify="message">Data barang berhasil dihapus.</span>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -55,8 +55,8 @@ else {
     elseif ($_GET['pesan'] == 4) {
       // tampilkan pesan gagal hapus data
       echo '<div class="alert alert-notify alert-danger alert-dismissible fade show" role="alert">
-              <span data-notify="icon" class="fas fa-times"></span> 
-              <span data-notify="title" class="text-danger">Gagal!</span> 
+              <span data-notify="icon" class="fas fa-times"></span>
+              <span data-notify="title" class="text-danger">Gagal!</span>
               <span data-notify="message">Data barang tidak bisa dihapus karena sudah tercatat pada Data Transaksi.</span>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -114,7 +114,7 @@ else {
               </tr>
             </thead>
             <tbody>
-            <?php
+              <?php
               // variabel untuk nomor urut tabel
               $no = 1;
               // sql statement untuk menampilkan data dari tabel "tbl_barang" dan tabel "tbl_satuan"
@@ -128,28 +128,35 @@ else {
                   <td width="20" class="text-center"><?php echo $no++; ?></td>
                   <td width="50" class="text-center"><?php echo $data['pic']; ?></td>
                   <td width="100" class="text-center"><?php echo $data['nama_barang']; ?></td>
-                  <td width="10"class="text-center"><?php echo $data['jumlah_peminjaman']; ?></td>
-                  <td width="60"class="text-center"><?php echo $data['tanggal_pinjam']; ?></td>
-                  <td width="60"class="text-center"><?php echo $data['tanggal_kembali']; ?></td>
-                  <td width="200"class="text-center"><?php echo $data['keterangan']; ?></td>
-                  <td width="50"class="text-center"><?php echo $data['status']; ?></td>
+                  <td width="10" class="text-center"><?php echo $data['jumlah_peminjaman']; ?></td>
+                  <td width="60" class="text-center"><?php echo $data['tanggal_pinjam']; ?></td>
+                  <td width="60" class="text-center"><?php echo $data['tanggal_kembali']; ?></td>
+                  <td width="200" class="text-center"><?php echo $data['keterangan']; ?></td>
+                  <td width="50" class="text-center"><?php echo $data['status']; ?></td>
                   <td width="50" class="text-center">
                     <?php
-                    if ($_SESSION['hak_akses'] != 'Admin Gudang' && $_SESSION['hak_akses'] != 'Marketing') { ?>
-                      <div>
-                        <!-- tombol ubah status peminjaman data -->
-                        <a href="modules/peminjaman-alat/change_status.php?id=<?php echo $data['id_peminjaman']; ?>" onclick="return confirm('Anda yakin ingin mengubah status peminjaman barang <?php echo $data['nama_barang']; ?> menjadi barang dikembalikan?')" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah Status">
-                          <i class="fas fa-check fa-sm"></i>
-                        </a>
-                        <!-- tombol ubah data -->
-                        <!-- <a href="?module=form_ubah_peminjaman&id=<?php echo $data['id_peminjaman']; ?>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
-                          <i class="fas fa-pencil-alt fa-sm"></i>
-                        </a> -->
-                        <!-- tombol hapus data -->
-                        <a href="modules/peminjaman-alat/proses_hapus.php?id=<?php echo $data['id_peminjaman']; ?>" onclick="return confirm('Anda yakin ingin menghapus data barang <?php echo $data['nama_barang']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
-                          <i class="fas fa-trash fa-sm"></i>
-                        </a>
-                      </div>
+                    // Check if status is NOT 'Barang Telah Dikembalikan' to show actions
+                    if ($data['status'] !== 'Barang Telah Dikembalikan') {
+                      if ($_SESSION['hak_akses'] != 'Admin Gudang' && $_SESSION['hak_akses'] != 'Marketing') { ?>
+                        <div>
+                          <!-- tombol ubah status peminjaman data -->
+                          <a href="modules/peminjaman-alat/change_status.php?id=<?php echo $data['id_peminjaman']; ?>" onclick="return confirm('Anda yakin ingin mengubah status peminjaman barang <?php echo $data['nama_barang']; ?> menjadi barang dikembalikan?')" class="btn btn-icon btn-round btn-primary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah Status">
+                            <i class="fas fa-check fa-sm"></i>
+                          </a>
+                          <!-- tombol ubah data -->
+                          <!-- <a href="?module=form_ubah_peminjaman&id=<?php echo $data['id_peminjaman']; ?>" class="btn btn-icon btn-round btn-secondary btn-sm mr-md-1" data-toggle="tooltip" data-placement="top" title="Ubah">
+                              <i class="fas fa-pencil-alt fa-sm"></i>
+                            </a> -->
+                          <!-- tombol hapus data -->
+                          <a href="modules/peminjaman-alat/proses_hapus.php?id=<?php echo $data['id_peminjaman']; ?>" onclick="return confirm('Anda yakin ingin menghapus data barang <?php echo $data['nama_barang']; ?>?')" class="btn btn-icon btn-round btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Hapus">
+                            <i class="fas fa-trash fa-sm"></i>
+                          </a>
+                        </div>
+                      <?php
+                      }
+                    } else { ?>
+                      <!-- Optional: Display a message or badge indicating it's done, or just leave empty -->
+                      <span class="badge badge-success">Selesai</span>
                     <?php } ?>
                   </td>
                 </tr>
@@ -166,5 +173,5 @@ else {
 
 <script>
 
-  
+
 </script>
