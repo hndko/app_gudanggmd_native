@@ -20,13 +20,55 @@ else {
     $jumlah_peminjaman = mysqli_real_escape_string($mysqli, $_POST['jumlah_peminjaman']);
     $pic               = mysqli_real_escape_string($mysqli, $_POST['pic']);
     $tanggal           = mysqli_real_escape_string($mysqli, $_POST['tanggal_pinjam']);
-    // $tanggal_kembali   = mysqli_real_escape_string($mysqli, trim($_POST['tanggal']));
-    $keterangan      = mysqli_real_escape_string($mysqli, $_POST['keterangan']);
-    $gambar          = mysqli_real_escape_string($mysqli, $_POST['gambar']);
-    $status          = 'Barang Dipinjam';
+    $tanggal_kembali   = mysqli_real_escape_string($mysqli, $_POST['tanggal_kembali']);
+    $keterangan        = mysqli_real_escape_string($mysqli, $_POST['keterangan']);
+    // $gambar          = mysqli_real_escape_string($mysqli, $_POST['gambar']);
+    $status            = 'Barang Dipinjam';
 
-    // ubah format tanggal menjadi Tahun-Bulan-Hari (Y-m-d) sebelum disimpan ke database
-    // $tanggal_pinjam = date('Y-m-d H:i:s', strtotime($tanggal));
+    // ambil data file yang diupload
+    $nama_file    = $_FILES['foto']['name'];
+    $ukuran_file  = $_FILES['foto']['size'];
+    $tipe_file    = $_FILES['foto']['type'];
+    $tmp_file     = $_FILES['foto']['tmp_name'];
+
+    // tentukan extension yang diperbolehkan
+    $allowed_extensions = array('jpg', 'jpeg', 'png');
+    // ambil extension file
+    $file_extension = explode('.', $nama_file);
+    $file_extension = strtolower(end($file_extension));
+
+    // Cek jika ada file yang diupload
+    if (!empty($nama_file)) {
+      // Cek validitas extension
+      if (in_array($file_extension, $allowed_extensions)) {
+        // Cek ukuran file (maks 1MB)
+        if ($ukuran_file <= 1000000) {
+          // Generate nama file baru agar unik
+          $nama_file_baru = uniqid() . '.' . $file_extension;
+          $path_file      = "../../images/" . $nama_file_baru;
+
+          // Upload file
+          if (move_uploaded_file($tmp_file, $path_file)) {
+            $gambar = $nama_file_baru;
+          } else {
+            // Jika gagal upload
+            header('location: ../../main.php?module=peminjaman-alat&pesan=2');
+            exit;
+          }
+        } else {
+          // Ukuran terlalu besar
+          header('location: ../../main.php?module=peminjaman-alat&pesan=3');
+          exit;
+        }
+      } else {
+        // Tipe file tidak sesuai
+        header('location: ../../main.php?module=peminjaman-alat&pesan=4');
+        exit;
+      }
+    } else {
+      // Jika tidak ada file diupload, set gambar kosong atau default
+      $gambar = "";
+    }
 
     // sql statement untuk insert data ke tabel "tbl_peminjaman_barang"
     $insert = mysqli_query($mysqli, "INSERT INTO tbl_peminjaman_barang(nama_barang, jumlah_peminjaman, pic, tanggal_pinjam, tanggal_kembali, keterangan, gambar,  status)

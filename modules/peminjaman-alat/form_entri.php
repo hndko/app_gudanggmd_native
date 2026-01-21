@@ -59,10 +59,10 @@ else { ?>
                 <input type="datetime-local" name="tanggal_pinjam" class="form-control" autocomplete="off" required>
               </div>
 
-              <!-- <div class="form-group">
+              <div class="form-group">
                 <label>Tanggal Kembali <span class="text-danger">*</span></label>
-                <input type="date" name="tanggal_kembali" class="form-control" autocomplete="off" >
-              </div> -->
+                <input type="date" name="tanggal_kembali" class="form-control" autocomplete="off" required>
+              </div>
 
               <div class="form-group">
                 <label>Keterangan <span class="text-danger">*</span></label>
