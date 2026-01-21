@@ -7,7 +7,7 @@ Thumbs.db
 .idea/
 
 # Config
-config/database.php
+.env
 
 # Uploads
 /uploads/*
