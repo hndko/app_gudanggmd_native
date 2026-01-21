@@ -1,11 +1,11 @@
 ﻿<?php
 session_start();      // mengaktifkan session
 
-// pengecekan session login user 
+// pengecekan session login user
 // jika user belum login
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
   // alihkan ke halaman login dan tampilkan pesan peringatan login
-  header('location: login.php?pesan=2');
+  header('location: auth/login.php?pesan=2');
 }
 // jika user sudah login, tampilkan halaman konten
 else { ?>
@@ -148,7 +148,7 @@ else { ?>
             <ul class="nav nav-secondary">
 
               <!-- panggil file "sidebar_menu.php" untuk menampilkan menu -->
-              <?php include "sidebar_menu.php"; ?>
+              <?php include "layouts/sidebar_menu.php"; ?>
 
             </ul>
           </div>
@@ -161,7 +161,7 @@ else { ?>
         <div class="content">
 
           <!-- panggil file "content.php" untuk menampilkan halaman konten -->
-          <?php include "content.php"; ?>
+          <?php include "layouts/content.php"; ?>
 
         </div>
         <!-- End Main Content -->
@@ -191,7 +191,7 @@ else { ?>
           <div class="modal-body">Apakah Anda yakin ingin logout?</div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Batal</button>
-            <a href="logout.php" class="btn btn-danger btn-round">Ya, Logout</a>
+            <a href="auth/logout.php" class="btn btn-danger btn-round">Ya, Logout</a>
           </div>
         </div>
       </div>

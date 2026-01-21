@@ -138,13 +138,13 @@ else {
                     // jika data "foto" tidak ada di database
                     if (is_null($data['foto'])) { ?>
                       <!-- tampilkan foto default -->
-                      <img style="max-height:200px" src="images/no_image.png" class="img-fluid foto-preview" alt="Foto Barang">
+                      <img style="max-height:200px" src="uploads/no_image.png" class="img-fluid foto-preview" alt="Foto Barang">
                     <?php
                     }
                     // jika data "foto" ada di database
                     else { ?>
                       <!-- tampilkan foto barang dari database -->
-                      <img style="max-height:200px" src="images/<?php echo $data['foto']; ?>" class="img-fluid foto-preview" alt="Foto Barang">
+                      <img style="max-height:200px" src="uploads/<?php echo $data['foto']; ?>" class="img-fluid foto-preview" alt="Foto Barang">
                     <?php } ?>
                   </div>
                 </div>
@@ -184,7 +184,7 @@ else {
           // reset input file
           $('#foto').val('');
           // tampilkan file default
-          $('.foto-preview').attr('src', 'images/no_image.png');
+          $('.foto-preview').attr('src', 'uploads/no_image.png');
 
           return false;
         }
@@ -195,7 +195,7 @@ else {
           // reset input file
           $('#foto').val('');
           // tampilkan file default
-          $('.foto-preview').attr('src', 'images/no_image.png');
+          $('.foto-preview').attr('src', 'uploads/no_image.png');
 
           return false;
         }

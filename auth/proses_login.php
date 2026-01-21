@@ -1,6 +1,6 @@
 <?php
 // panggil file "database.php" untuk koneksi ke database
-require_once "config/database.php";
+require_once "../../config/database.php";
 
 // ambil data hasil submit dari form
 $username = mysqli_real_escape_string($mysqli, $_POST['username']);
@@ -8,7 +8,7 @@ $password = mysqli_real_escape_string($mysqli, $_POST['password']);
 
 // sql statement untuk menampilkan data dari tabel "tbl_user" berdasarkan "username"
 $query = mysqli_query($mysqli, "SELECT * FROM tbl_user WHERE username='$username'")
-                                or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+  or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
 // ambil jumlah baris data hasil query
 $rows = mysqli_num_rows($query);
 
@@ -20,10 +20,10 @@ if ($rows <> 0) {
   // tampilkan data "password" dari database
   $password_hash = $data['password'];
 
-  /* 	
+  /*
 		validasi password saat login menggunakan password_verify()
 		$password	      ---> password yang diinputkan user melalui form login
-		$password_hash  ---> password user dalam database 
+		$password_hash  ---> password user dalam database
 	*/
   // jika password valid
   if (password_verify($password, $password_hash)) {
@@ -37,7 +37,7 @@ if ($rows <> 0) {
     $_SESSION['hak_akses'] = $data['hak_akses'];
 
     // lalu alihkan ke halaman dashboard dan tampilkan pesan selamat datang
-    header('location: main.php?module=dashboard&pesan=1');
+    header('location: ../../main.php?module=dashboard&pesan=1');
   }
   // jika password tidak valid
   else {

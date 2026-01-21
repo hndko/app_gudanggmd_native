@@ -1,0 +1,22 @@
+# OS Specific
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Config
+config/database.php
+
+# Uploads
+/uploads/*
+!/uploads/index.html
+!/uploads/.gitignore
+
+# Dependencies (if any in future)
+/vendor/
+/node_modules/
+
+# Logs
+*.log

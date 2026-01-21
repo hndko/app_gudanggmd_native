@@ -5,7 +5,7 @@ session_start();      // mengaktifkan session
 // jika user belum login
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
   // alihkan ke halaman login dan tampilkan pesan peringatan login
-  header('location: ../../login.php?pesan=2');
+  header('location: ../../auth/login.php?pesan=2');
 }
 // jika user sudah login, maka jalankan perintah untuk insert
 else {
@@ -45,7 +45,7 @@ else {
         if ($ukuran_file <= 1000000) {
           // Generate nama file baru agar unik
           $nama_file_baru = uniqid() . '.' . $file_extension;
-          $path_file      = "../../images/" . $nama_file_baru;
+          $path_file      = "../../uploads/" . $nama_file_baru;
 
           // Upload file
           if (move_uploaded_file($tmp_file, $path_file)) {

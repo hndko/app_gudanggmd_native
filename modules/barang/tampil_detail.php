@@ -118,13 +118,13 @@ else {
             // jika data "foto" tidak ada di database
             if (is_null($data['foto'])) { ?>
               <!-- tampilkan foto default -->
-              <img style="max-height:375px" src="images/no_image.png" class="img-fluid" alt="Foto Barang">
+              <img style="max-height:375px" src="uploads/no_image.png" class="img-fluid" alt="Foto Barang">
             <?php
             }
             // jika data "foto" ada di database
             else { ?>
               <!-- tampilkan foto barang dari database -->
-              <img style="max-height:375px" src="images/<?php echo $data['foto']; ?>" class="img-fluid" alt="Foto Barang">
+              <img style="max-height:375px" src="uploads/<?php echo $data['foto']; ?>" class="img-fluid" alt="Foto Barang">
             <?php } ?>
           </div>
         </div>

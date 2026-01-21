@@ -10,7 +10,7 @@ use Dompdf\Dompdf;
 // jika user belum login
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
   // alihkan ke halaman login dan tampilkan pesan peringatan login
-  header('location: ../../login.php?pesan=2');
+  header('location: ../../auth/login.php?pesan=2');
 }
 // jika user sudah login, maka jalankan perintah untuk cetak
 else {

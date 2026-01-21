@@ -5,7 +5,7 @@ session_start();      // mengaktifkan session
 // jika user belum login
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
   // alihkan ke halaman login dan tampilkan pesan peringatan login
-  header('location: ../../login.php?pesan=2');
+  header('location: ../../auth/login.php?pesan=2');
 }
 // jika user sudah login, maka jalankan perintah untuk insert
 else {
@@ -29,7 +29,7 @@ else {
     // enkripsi nama file
     $nama_file_enkripsi = sha1(md5(time() . $nama_file)) . '.' . $extension;
     // tentukan direktori penyimpanan file foto
-    $path               = "../../images/" . $nama_file_enkripsi;
+    $path               = "../../uploads/" . $nama_file_enkripsi;
 
     // mengecek data foto dari form entri data
     // jika data foto tidak ada

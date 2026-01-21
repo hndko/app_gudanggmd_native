@@ -77,7 +77,7 @@ else { ?>
                 <input type="file" id="foto" name="foto" class="form-control" autocomplete="off">
                 <div class="card mt-3 mb-3">
                   <div class="card-body text-center">
-                    <img style="max-height:200px" src="images/no_image.png" class="img-fluid foto-preview" name="gambar" alt="Foto Barang">
+                    <img style="max-height:200px" src="uploads/no_image.png" class="img-fluid foto-preview" name="gambar" alt="Foto Barang">
                   </div>
                 </div>
                 <small class="form-text text-primary">
@@ -116,7 +116,7 @@ else { ?>
           // reset input file
           $('#foto').val('');
           // tampilkan file default
-          $('.foto-preview').attr('src', 'images/no_image.png');
+          $('.foto-preview').attr('src', 'uploads/no_image.png');
 
           return false;
         }
@@ -127,7 +127,7 @@ else { ?>
           // reset input file
           $('#foto').val('');
           // tampilkan file default
-          $('.foto-preview').attr('src', 'images/no_image.png');
+          $('.foto-preview').attr('src', 'uploads/no_image.png');
 
           return false;
         }

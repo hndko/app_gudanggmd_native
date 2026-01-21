@@ -5,7 +5,7 @@ session_start();      // mengaktifkan session
 // jika user belum login
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
   // alihkan ke halaman login dan tampilkan pesan peringatan login
-  header('location: ../../login.php?pesan=2');
+  header('location: ../../auth/login.php?pesan=2');
 }
 // jika user sudah login, maka jalankan perintah untuk delete
 else {
@@ -44,7 +44,7 @@ else {
       // jika data "foto" tidak kosong
       if (!empty($foto)) {
         // hapus file foto dari folder images
-        $hapus_file = unlink("../../images/$foto");
+        $hapus_file = unlink("../../uploads/$foto");
       }
 
       // sql statement untuk delete data dari tabel "tbl_barang" berdasarkan "id_barang"

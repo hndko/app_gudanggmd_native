@@ -10,32 +10,32 @@
   <meta name="author" content="Code Null" />
 
   <!-- Title -->
-  <title>Aplikasi Gudang GMD</title>
+<title>Aplikasi Gudang GMD</title>
 
-  <!-- Favicon icon -->
-  <link rel="icon" href="assets/img/logogudang.png" type="image/x-icon" />
+<!-- Favicon icon -->
+<link rel="icon" href="../assets/img/logogudang.png" type="image/x-icon" />
 
-  <!-- Fonts and icons -->
-  <script src="assets/js/plugin/webfont/webfont.min.js"></script>
-  <script>
-    WebFont.load({
-      google: {
-        "families": ["Lato:300,400,700,900"]
-      },
-      custom: {
-        "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
-        urls: ['assets/css/fonts.min.css']
-      },
-      active: function() {
-        sessionStorage.fonts = true;
-      }
-    });
-  </script>
+<!-- Fonts and icons -->
+<script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      "families": ["Lato:300,400,700,900"]
+    },
+    custom: {
+      "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
+      urls: ['../assets/css/fonts.min.css']
+    },
+    active: function() {
+      sessionStorage.fonts = true;
+    }
+  });
+</script>
 
-  <!-- CSS Files -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/atlantis.min.css">
-  <link rel="stylesheet" href="assets/css/login.css">
+<!-- CSS Files -->
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/css/atlantis.min.css">
+<link rel="stylesheet" href="../assets/css/login.css">
 </head>
 
 <body class="login">
@@ -47,8 +47,8 @@
     if ($_GET['pesan'] == 1) {
       // tampilkan pesan gagal login
       echo '<div class="alert alert-notify alert-danger alert-dismissible fade show" role="alert">
-              <span data-notify="icon" class="fas fa-times"></span> 
-              <span data-notify="title" class="text-danger">Gagal Login!</span> 
+              <span data-notify="icon" class="fas fa-times"></span>
+              <span data-notify="title" class="text-danger">Gagal Login!</span>
               <span data-notify="message">Username atau Password salah. Cek kembali Username dan Password Anda.</span>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -59,8 +59,8 @@
     elseif ($_GET['pesan'] == 2) {
       // tampilkan pesan peringatan login
       echo '<div class="alert alert-notify alert-warning alert-dismissible fade show" role="alert">
-              <span data-notify="icon" class="fas fa-exclamation"></span> 
-              <span data-notify="title" class="text-warning">Peringatan!</span> 
+              <span data-notify="icon" class="fas fa-exclamation"></span>
+              <span data-notify="title" class="text-warning">Peringatan!</span>
               <span data-notify="message">Anda harus login terlebih dahulu.</span>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -71,8 +71,8 @@
     elseif ($_GET['pesan'] == 3) {
       // tampilkan pesan sukses logout
       echo '<div class="alert alert-notify alert-success alert-dismissible fade show" role="alert">
-              <span data-notify="icon" class="fas fa-check"></span> 
-              <span data-notify="title" class="text-success">Sukses!</span> 
+              <span data-notify="icon" class="fas fa-check"></span>
+              <span data-notify="title" class="text-success">Sukses!</span>
               <span data-notify="message">Anda telah berhasil logout.</span>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -85,7 +85,7 @@
   <div class="wrapper wrapper-login">
     <div class="container container-login animated fadeIn">
       <!-- logo -->
-      <div class="text-center mb-4"><img src="assets/img/logogudang.png" alt="Logo" width="95px"></div>
+      <div class="text-center mb-4"><img src="../assets/img/logogudang.png" alt="Logo" width="95px"></div>
       <!-- judul -->
       <h3 class="text-center">Aplikasi Gudang GMD</h3>
       <!-- form login -->
@@ -113,24 +113,24 @@
         <!-- footer -->
         <div class="login-footer mt-4">
           <!-- <span class="msg">&copy; Code Null - 2023</span> -->
-         </div>
+        </div>
       </form>
     </div>
   </div>
 
   <!--   Core JS Files   -->
-  <script src="assets/js/core/jquery.3.2.1.min.js"></script>
-  <script src="assets/js/core/popper.min.js"></script>
-  <script src="assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/core/jquery.3.2.1.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
 
   <!-- jQuery UI -->
-  <script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+  <script src="../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 
   <!-- Template JS -->
-  <script src="assets/js/ready.js"></script>
+  <script src="../assets/js/ready.js"></script>
 
   <!-- Custom Scripts -->
-  <script src="assets/js/form-validation.js"></script>
+  <script src="../assets/js/form-validation.js"></script>
 </body>
 
 </html>

@@ -1,11 +1,11 @@
 <?php
 session_start();      // mengaktifkan session
 
-// pengecekan session login user 
+// pengecekan session login user
 // jika user belum login
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
   // alihkan ke halaman login dan tampilkan pesan peringatan login
-  header('location: ../../login.php?pesan=2');
+  header('location: ../../auth/login.php?pesan=2');
 }
 // jika user sudah login, maka jalankan perintah untuk update
 else {
@@ -24,7 +24,7 @@ else {
     // mengecek "username" untuk mencegah data duplikat
     // sql statement untuk menampilkan data "username" dari tabel "tbl_user" berdasarkan input "username"
     $query = mysqli_query($mysqli, "SELECT username FROM tbl_user WHERE username='$username' AND id_user!='$id_user'")
-                                    or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
+      or die('Ada kesalahan pada query tampil data : ' . mysqli_error($mysqli));
     // ambil jumlah baris data hasil query
     $rows = mysqli_num_rows($query);
 
@@ -43,7 +43,7 @@ else {
         $update = mysqli_query($mysqli, "UPDATE tbl_user
                                          SET nama_user='$nama_user', username='$username', hak_akses='$hak_akses'
                                          WHERE id_user='$id_user'")
-                                         or die('Ada kesalahan pada query update : ' . mysqli_error($mysqli));
+          or die('Ada kesalahan pada query update : ' . mysqli_error($mysqli));
       }
       // jika password diubah
       else {
@@ -59,7 +59,7 @@ else {
         $update = mysqli_query($mysqli, "UPDATE tbl_user
                                          SET nama_user='$nama_user', username='$username', password='$password_hash', hak_akses='$hak_akses'
                                          WHERE id_user='$id_user'")
-                                         or die('Ada kesalahan pada query update : ' . mysqli_error($mysqli));
+          or die('Ada kesalahan pada query update : ' . mysqli_error($mysqli));
       }
 
       // cek query
